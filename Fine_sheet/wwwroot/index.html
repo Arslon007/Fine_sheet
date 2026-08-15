@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fine Sheet</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>
+    <h1>Fine Sheet</h1>
+    <nav>
+        <button class="active" onclick="showPage('employees')">Сотрудники</button>
+        <button onclick="showPage('fines')">Штрафы</button>
+        <button onclick="showPage('bonuses')">Бонусы</button>
+        <button onclick="showPage('salary')">Зарплата</button>
+    </nav>
+</header>
+
+<div class="container">
+
+    <!-- EMPLOYEES PAGE -->
+    <div id="page-employees" class="page active">
+        <div class="card">
+            <h2>Добавить сотрудника</h2>
+            <form id="form-employee" onsubmit="addEmployee(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>ФИО</label>
+                        <input type="text" id="emp-name" required placeholder="Иванов Иван Иванович">
+                    </div>
+                    <div class="form-group">
+                        <label>Должность</label>
+                        <select id="emp-position" required>
+                            <option value="">Выберите...</option>
+                            <option value="Developer">Developer</option>
+                            <option value="Designer">Designer</option>
+                            <option value="Manager">Manager</option>
+                            <option value="QA">QA</option>
+                            <option value="HR">HR</option>
+                            <option value="DevOps">DevOps</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Оклад (руб.)</label>
+                        <input type="number" id="emp-salary" required min="0" step="0.01" placeholder="50000">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary">Добавить</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Список сотрудников</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>ФИО</th>
+                        <th>Должность</th>
+                        <th>Оклад</th>
+                    </tr>
+                </thead>
+                <tbody id="employees-table"></tbody>
+            </table>
+            <div id="employees-empty" class="empty" style="display:none">Нет сотрудников</div>
+        </div>
+    </div>
+
+    <!-- FINES PAGE -->
+    <div id="page-fines" class="page">
+        <div class="card">
+            <h2>Добавить штраф</h2>
+            <form id="form-fine" onsubmit="addFine(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Сотрудник</label>
+                        <select id="fine-employee" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Причина</label>
+                        <input type="text" id="fine-reason" required placeholder="Опоздание">
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма (руб.)</label>
+                        <input type="number" id="fine-amount" required min="0.01" step="0.01" placeholder="1000">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-danger">Добавить штраф</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Штрафы сотрудника</h2>
+            <div class="salary-select">
+                <div class="form-group">
+                    <label>Сотрудник</label>
+                    <select id="fines-view-employee" onchange="loadFines()"></select>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Причина</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody id="fines-table"></tbody>
+            </table>
+            <div id="fines-empty" class="empty" style="display:none">Нет штрафов</div>
+            <div id="fines-total" style="text-align:right; margin-top:12px; font-weight:700; display:none"></div>
+        </div>
+    </div>
+
+    <!-- BONUSES PAGE -->
+    <div id="page-bonuses" class="page">
+        <div class="card">
+            <h2>Добавить бонус</h2>
+            <form id="form-bonus" onsubmit="addBonus(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Сотрудник</label>
+                        <select id="bonus-employee" required></select>
+                    </div>
+                    <div class="form-group">
+                        <label>Причина</label>
+                        <input type="text" id="bonus-reason" required placeholder="Перевыполнение плана">
+                    </div>
+                    <div class="form-group">
+                        <label>Сумма (руб.)</label>
+                        <input type="number" id="bonus-amount" required min="0.01" step="0.01" placeholder="5000">
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-success">Добавить бонус</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Бонусы сотрудника</h2>
+            <div class="salary-select">
+                <div class="form-group">
+                    <label>Сотрудник</label>
+                    <select id="bonuses-view-employee" onchange="loadBonuses()"></select>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Дата</th>
+                        <th>Причина</th>
+                        <th>Сумма</th>
+                    </tr>
+                </thead>
+                <tbody id="bonuses-table"></tbody>
+            </table>
+            <div id="bonuses-empty" class="empty" style="display:none">Нет бонусов</div>
+            <div id="bonuses-total" style="text-align:right; margin-top:12px; font-weight:700; display:none"></div>
+        </div>
+    </div>
+
+    <!-- SALARY PAGE -->
+    <div id="page-salary" class="page">
+        <div class="card">
+            <h2>Расчёт зарплаты</h2>
+            <div class="salary-select">
+                <div class="form-group">
+                    <label>Сотрудник</label>
+                    <select id="salary-employee" onchange="loadSalary()"></select>
+                </div>
+            </div>
+            <div id="salary-result" style="display:none">
+                <div class="salary-grid">
+                    <div class="salary-item">
+                        <div class="label">Сотрудник</div>
+                        <div class="value" id="sal-name" style="font-size:18px"></div>
+                    </div>
+                    <div class="salary-item">
+                        <div class="label">Должность</div>
+                        <div class="value" id="sal-position" style="font-size:18px"></div>
+                    </div>
+                    <div class="salary-item">
+                        <div class="label">Оклад</div>
+                        <div class="value" id="sal-base"></div>
+                    </div>
+                    <div class="salary-item bonus">
+                        <div class="label">Бонусы</div>
+                        <div class="value" id="sal-bonuses"></div>
+                    </div>
+                    <div class="salary-item fine">
+                        <div class="label">Штрафы</div>
+                        <div class="value" id="sal-fines"></div>
+                    </div>
+                    <div class="salary-item total">
+                        <div class="label">Итого к выплате</div>
+                        <div class="value" id="sal-final"></div>
+                    </div>
+                </div>
+            </div>
+            <div id="salary-empty" class="empty">Выберите сотрудника для расчёта</div>
+        </div>
+    </div>
+
+</div>
+
+<div id="toast" class="toast"></div>
+
+<script src="js/app.js"></script>
+</body>
+</html>

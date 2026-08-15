@@ -1,0 +1,6 @@
+@Fine_sheet_HostAddress = http://localhost:5263
+
+GET {{Fine_sheet_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

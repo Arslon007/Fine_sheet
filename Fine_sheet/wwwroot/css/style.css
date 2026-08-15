@@ -1,0 +1,252 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f2f5;
+    color: #333;
+    min-height: 100vh;
+}
+
+header {
+    background: linear-gradient(135deg, #1a237e, #283593);
+    color: #fff;
+    padding: 16px 32px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 2px 8px rgba(0,0,0,.15);
+}
+
+header h1 {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+nav {
+    display: flex;
+    gap: 4px;
+}
+
+nav button {
+    background: rgba(255,255,255,.12);
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background .2s;
+}
+
+nav button:hover {
+    background: rgba(255,255,255,.25);
+}
+
+nav button.active {
+    background: rgba(255,255,255,.3);
+    font-weight: 600;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 24px auto;
+    padding: 0 16px;
+}
+
+.card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.08);
+    padding: 24px;
+    margin-bottom: 20px;
+}
+
+.card h2 {
+    font-size: 18px;
+    margin-bottom: 16px;
+    color: #1a237e;
+}
+
+.page { display: none; }
+.page.active { display: block; }
+
+/* Forms */
+.form-row {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-width: 180px;
+}
+
+.form-group label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+}
+
+.form-group input,
+.form-group select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color .2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #1a237e;
+}
+
+.btn {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, transform .1s;
+}
+
+.btn:active { transform: scale(.97); }
+
+.btn-primary {
+    background: #1a237e;
+    color: #fff;
+}
+
+.btn-primary:hover { background: #283593; }
+
+.btn-success {
+    background: #2e7d32;
+    color: #fff;
+}
+
+.btn-success:hover { background: #388e3c; }
+
+.btn-danger {
+    background: #c62828;
+    color: #fff;
+}
+
+.btn-danger:hover { background: #d32f2f; }
+
+.btn-sm {
+    padding: 6px 14px;
+    font-size: 12px;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+thead th {
+    background: #f5f5f5;
+    padding: 10px 12px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #666;
+    letter-spacing: .5px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+tbody td {
+    padding: 10px 12px;
+    border-bottom: 1px solid #f0f0f0;
+    font-size: 14px;
+}
+
+tbody tr:hover { background: #fafafa; }
+
+/* Salary card */
+.salary-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.salary-item {
+    background: #f5f5f5;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+}
+
+.salary-item .label {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+}
+
+.salary-item .value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1a237e;
+}
+
+.salary-item.bonus .value { color: #2e7d32; }
+.salary-item.fine .value { color: #c62828; }
+.salary-item.total .value { color: #1a237e; }
+
+.salary-select {
+    display: flex;
+    gap: 12px;
+    align-items: end;
+    margin-bottom: 20px;
+}
+
+/* Toast */
+.toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0,0,0,.2);
+    transform: translateY(100px);
+    opacity: 0;
+    transition: all .3s ease;
+    z-index: 1000;
+}
+
+.toast.show {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.toast.success { background: #2e7d32; }
+.toast.error { background: #c62828; }
+
+/* Empty state */
+.empty {
+    text-align: center;
+    padding: 40px;
+    color: #999;
+    font-size: 14px;
+}
+
+/* Clickable row */
+.clickable { cursor: pointer; }
